@@ -1,0 +1,29 @@
+NAME := megaphone
+FLAGS := -Wall -Wextra -Werror -std=c++11
+SRCS := megaphone.cpp
+OBJS_DIR := objs
+COMPILER := c++
+
+OBJS = $(SRCS:.cpp=.o)
+TARGETS = $(addprefix $(OBJS_DIR)/, $(OBJS))
+
+all: $(NAME)
+
+$(OBJS_DIR)/%.o: %.cpp
+	$(COMPILER) $(FLAGS) -c $^ -o $@
+
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+
+$(NAME): $(OBJS_DIR) $(TARGETS)
+	$(COMPILER) -o $(NAME) $(TARGETS)
+
+clean:
+	rm -rf $(OBJS_DIR)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
