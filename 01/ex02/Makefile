@@ -1,6 +1,6 @@
-NAME := account
-FLAGS := -Wall -Wextra -Werror -std=c++98
-SRCS := tests.cpp Account.cpp
+NAME := brain
+FLAGS := -Wall -Wextra -Werror -std=c++11
+SRCS := main.cpp
 OBJS_DIR := objs
 COMPILER := c++
 

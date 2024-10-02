@@ -1,6 +1,6 @@
-NAME := account
-FLAGS := -Wall -Wextra -Werror -std=c++98
-SRCS := tests.cpp Account.cpp
+NAME := sed
+FLAGS := -Wall -Wextra -Werror -std=c++11
+SRCS := main.cpp replaceFile.cpp
 OBJS_DIR := objs
 COMPILER := c++
 

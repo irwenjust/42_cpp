@@ -1,6 +1,6 @@
-NAME := account
-FLAGS := -Wall -Wextra -Werror -std=c++98
-SRCS := tests.cpp Account.cpp
+NAME := 02
+FLAGS := -Wall -Wextra -Werror -std=c++11
+SRCS := main.cpp Fixed.cpp
 OBJS_DIR := objs
 COMPILER := c++
 

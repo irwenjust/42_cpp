@@ -1,6 +1,6 @@
-NAME := account
-FLAGS := -Wall -Wextra -Werror -std=c++98
-SRCS := tests.cpp Account.cpp
+NAME := zombieHorde
+FLAGS := -Wall -Wextra -Werror -std=c++11
+SRCS := main.cpp Zombie.cpp zombieHorde.cpp
 OBJS_DIR := objs
 COMPILER := c++
 

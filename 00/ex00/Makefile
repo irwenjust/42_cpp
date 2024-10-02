@@ -16,7 +16,7 @@ $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
 $(NAME): $(OBJS_DIR) $(TARGETS)
-	$(COMPILER) -o $(NAME) $(TARGETS)
+	$(COMPILER) $(FLAGS) -o $(NAME) $(TARGETS)
 
 clean:
 	rm -rf $(OBJS_DIR)
