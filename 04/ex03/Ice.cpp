@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 20:23:31 by likong            #+#    #+#             */
-/*   Updated: 2024/10/08 09:36:46 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/09 09:43:53 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ AMateria	*Ice::clone() const{
 }
 
 void	Ice::use(ICharacter &target){
-	std::cout << "* heals "<< target.getName() <<"'s wounds *\n";
+	std::cout << "* shoots an Cure bolt at "
+			<< target.getName() << std::endl;
 }

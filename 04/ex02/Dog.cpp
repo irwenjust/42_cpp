@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 11:16:45 by likong            #+#    #+#             */
-/*   Updated: 2024/10/07 19:05:53 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:02:45 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ Dog::Dog(const Dog &other): Animal(other){
 Dog::~Dog(){
 	std::cout << "Dog distructor called\n";
 	delete this->_brain;
+	this->_brain = nullptr;
 }
 
 Dog	&Dog::operator = (const Dog &other){
@@ -33,8 +34,10 @@ Dog	&Dog::operator = (const Dog &other){
 	if (this == &other)
 		return (*this);
 	Animal::operator=(other);
-	if (this->_brain != nullptr)
+	if (this->_brain != nullptr){
 		delete this->_brain;
+		this->_brain = nullptr;
+	}
 	this->_brain = new Brain(*other._brain);
 	return (*this);
 }

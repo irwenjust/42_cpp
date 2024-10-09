@@ -6,13 +6,23 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 20:22:02 by likong            #+#    #+#             */
-/*   Updated: 2024/10/07 20:51:10 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/08 18:40:50 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AMateria.hpp"
 
+AMateria::AMateria(): _type("Empty"){}
+
+AMateria::AMateria(const AMateria &other): AMateria(other._type){}
+
 AMateria::AMateria(std::string const &type): _type(type){}
+
+AMateria::~AMateria(){}
+
+AMateria	&AMateria::operator = (const AMateria &){
+	return (*this);
+}
 
 std::string const	&AMateria::getType() const{
 	return (this->_type);

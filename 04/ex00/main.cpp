@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:10:33 by likong            #+#    #+#             */
-/*   Updated: 2024/10/04 12:38:05 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:06:40 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,11 @@ void	forSubject(){
 	meta->makeSound();
 
 	delete	meta;
+	meta = nullptr;
 	delete	j;
+	i = nullptr;
 	delete	i;
+	i = nullptr;
 }
 
 void	forAnimal(){

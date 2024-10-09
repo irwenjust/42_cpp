@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:10:33 by likong            #+#    #+#             */
-/*   Updated: 2024/10/07 19:46:26 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:05:42 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ void	forSubject(){
 	j->makeSound();
 
 	delete	j;
+	j = nullptr;
 	delete	i;
+	i = nullptr;
 }
 
 void	forAnimal(){
@@ -40,8 +42,10 @@ void	forAnimal(){
 	for (int i = 0; i < 4; i++)
 		animal[i]->makeSound();
 	
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 4; i++){
 		delete animal[i];
+		animal[i] = nullptr;
+	}
 	
 	std::cout << "\n-----------From deep copy------------\n\n";
 	

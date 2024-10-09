@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 11:16:30 by likong            #+#    #+#             */
-/*   Updated: 2024/10/07 18:32:59 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/08 16:03:00 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ Cat::Cat(const Cat &other): Animal(other){
 Cat::~Cat(){
 	std::cout << "Cat distructor called\n";
 	delete this->_brain;
+	this->_brain = nullptr;
 }
 
 Cat	&Cat::operator = (const Cat &other){
@@ -33,8 +34,10 @@ Cat	&Cat::operator = (const Cat &other){
 	if (this == &other)
 		return (*this);
 	Animal::operator=(other);
-	if (this->_brain != nullptr)
+	if (this->_brain != nullptr){
 		delete this->_brain;
+		this->_brain = nullptr;
+	}
 	this->_brain = new Brain(*other._brain);
 	return (*this);
 }

@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 20:23:41 by likong            #+#    #+#             */
-/*   Updated: 2024/10/07 20:59:54 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/08 18:54:00 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ class Ice: public AMateria{
 	public:
 		Ice();
 		Ice(const Ice &);
-		~Ice();
+		~Ice() override;
 
 		Ice		&operator = (const Ice &);
 
