@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 20:26:00 by likong            #+#    #+#             */
-/*   Updated: 2024/10/09 09:50:09 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/09 18:59:36 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,26 @@ MateriaSource::MateriaSource(const MateriaSource &other){
 }
 
 MateriaSource::~MateriaSource(){
-	void*	freedObjects[4] = {nullptr};
-	int		freedCount = 0;
+	void*	freeObjects[4] = {nullptr};
+	int		freeCount = 0;
 
 	for (int i = 0; i < 4; i++)
 	{
-		int	already_freed = 0;
-		for (int j = 0; j < freedCount; j++)
+		int	checkFree = 0;
+		for (int j = 0; j < freeCount; j++)
 		{
-			if (_inventory[i] == freedObjects[j])
+			if (this->_inventory[i] == freeObjects[j])
 			{
-				already_freed = 1;
+				checkFree = 1;
 				break;
 			}
 		}
-		if (!already_freed)
+		if (!checkFree)
 		{
-			freedObjects[freedCount] = _inventory[i];
-			delete _inventory[i];
-			freedCount++;
+			freeObjects[freeCount] = this->_inventory[i];
+			delete this->_inventory[i];
+			this->_inventory[i] = nullptr;
+			freeCount++;
 		}
 	}
 }
@@ -78,7 +79,7 @@ void	MateriaSource::learnMateria(AMateria *m){
 	for (int i = 0; i < 4; i++)
 	{
 		if (_inventory[i] == m)
-			return ; // to prevent double free
+			return ;
 	}
 	delete m;
 	m = nullptr;
@@ -87,8 +88,9 @@ void	MateriaSource::learnMateria(AMateria *m){
 AMateria	*MateriaSource::createMateria(std::string const &type){
 	for (int i = 0; i < 4; i++){
 		if (this->_inventory[i] != nullptr
-			&& this->_inventory[i]->getType() == type)
+			&& this->_inventory[i]->getType() == type){
 				return (this->_inventory[i]->clone());
+			}
 	}
 	return (nullptr);
 }

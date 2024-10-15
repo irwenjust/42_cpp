@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 20:28:38 by likong            #+#    #+#             */
-/*   Updated: 2024/10/09 09:50:35 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/14 09:48:41 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,21 @@
 #include "Character.hpp"
 #include "MateriaSource.hpp"
 
-static void	testFromSubject()
-{
+static void	forSubject(){
 	IMateriaSource*	src = new MateriaSource();
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());
+	
 	ICharacter*	me = new Character("me");
+	
 	AMateria*	tmp;
 	tmp = src->createMateria("ice");
 	me->equip(tmp);
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
+
 	ICharacter*	bob = new Character("bob");
+	
 	me->use(0, *bob);
 	me->use(1, *bob);
 
@@ -35,74 +38,173 @@ static void	testFromSubject()
 	delete src;
 }
 
-static void	useAllFromInventory(ICharacter* player, ICharacter* target)
-{
-	player->use(0, *target);
-	player->use(1, *target);
-	player->use(2, *target);
-	player->use(3, *target);
+static void	useAll(ICharacter* player, ICharacter* target){
+	for (int i = 0; i < 4; i++)
+		player->use(i, *target);
 }
 
-int	main()
-{
-	std::cout << "\033[96m" << "---TEST FROM SUBJECT---\n" << "\033[0m";
-	testFromSubject();
-
-	std::cout << "\033[96m" << "\n---OWN TESTS---\n" << "\033[0m";
+static void	forNormal(){
 	IMateriaSource*	src = new MateriaSource();
+	AMateria	*ice = new Ice();
+	AMateria	*cure = new Cure();
 
-	AMateria*	ice = new Ice();
-	AMateria*	cure = new Cure();
-
-	// learnMateria
 	src->learnMateria(ice);
 	src->learnMateria(cure);
 	src->learnMateria(ice);
+	src->learnMateria(cure);
+	src->learnMateria(cure);
+	src->learnMateria(nullptr);
+
+	ICharacter	*me = new Character("me");
+	AMateria	*tmp;
+	me->equip(nullptr);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+	tmp = src->createMateria("barrett-M82");
+	me->equip(tmp);
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+
+	std::cout << "-----------Use all things-----------\n";
+	ICharacter	*bob = new Character("bob");
+	useAll(me, bob);
+	me->use(4, *bob);
+	me->use(-1, *bob);
+	
+	delete tmp;
+	delete src;
+	delete bob;
+	delete me;
+}
+
+static void	forNoCure(){
+	IMateriaSource*	src = new MateriaSource();
+	AMateria	*ice = new Ice();
+	AMateria	*cure = new Cure();
+
+	src->learnMateria(ice);
+	src->learnMateria(ice);
+	src->learnMateria(ice);
+	src->learnMateria(ice);
+	src->learnMateria(cure);
+	src->learnMateria(nullptr);
+
+	ICharacter	*me = new Character("me");
+	AMateria	*tmp;
+	me->equip(nullptr);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+	tmp = src->createMateria("barrett-M82");
+	me->equip(tmp);
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+
+	std::cout << "-----------Use all things-----------\n";
+	ICharacter	*bob = new Character("bob");
+	useAll(me, bob);
+	me->use(4, *bob);
+	me->use(-1, *bob);
+	
+	delete tmp;
+	delete src;
+	delete bob;
+	delete me;
+}
+
+static void	forNoIce(){
+	IMateriaSource*	src = new MateriaSource();
+	AMateria	*ice = new Ice();
+	AMateria	*cure = new Cure();
+
+	src->learnMateria(cure);
+	src->learnMateria(cure);
+	src->learnMateria(cure);
 	src->learnMateria(cure);
 	src->learnMateria(ice);
 	src->learnMateria(nullptr);
 
-	// createMateria & equip
-	ICharacter*	me = new Character("me");
-	AMateria*	tmp;
+	ICharacter	*me = new Character("me");
+	AMateria	*tmp;
 	me->equip(nullptr);
-	tmp = src->createMateria("fire");
-	me->equip(tmp);
 	tmp = src->createMateria("ice");
 	me->equip(tmp);
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
 	tmp = src->createMateria("ice");
 	me->equip(tmp);
+	tmp = src->createMateria("barrett-M82");
+	me->equip(tmp);
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
 	tmp = src->createMateria("ice");
 	me->equip(tmp);
-	delete tmp; // to prevent memory leaks when inventory is full
 
-	// use
-	std::cout << "\033[36m" << "test1: use all Materias from inventory\n" << "\033[0m";
-	ICharacter*	bob = new Character("bob");
-	useAllFromInventory(me, bob);
-	// pass invalid indexes to Character::use()
+	std::cout << "-----------Use all things-----------\n";
+	ICharacter	*bob = new Character("bob");
+	useAll(me, bob);
 	me->use(4, *bob);
 	me->use(-1, *bob);
+	
+	delete tmp;
+	delete src;
+	delete bob;
+	delete me;
+}
 
-	// unequip
-	std::cout << "\033[36m" << "test2: exchange Materias at slot 1 and 2 "
-				<< "and use all Materias from inventory\n" << "\033[0m";
-	AMateria*	floor[10];
+static void	forExchange(){
+	IMateriaSource*	src = new MateriaSource();
+	AMateria	*ice = new Ice();
+	AMateria	*cure = new Cure();
+
+	src->learnMateria(ice);
+	src->learnMateria(cure);
+	src->learnMateria(ice);
+	src->learnMateria(cure);
+	src->learnMateria(cure);
+	src->learnMateria(nullptr);
+
+	ICharacter	*me = new Character("me");
+	AMateria	*tmp;
+	me->equip(nullptr);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+	tmp = src->createMateria("barrett-M82");
+	me->equip(tmp);
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+
+	ICharacter	*bob = new Character("bob");
+
+	AMateria	*floor[10];
 	for (int i = 0; i < 10; i++)
     	floor[i] = nullptr;
-	Character*	me_copy = dynamic_cast<Character*>(me);
-	if (me_copy == nullptr)
-		return (1);
-	floor[0] = me_copy->getInventory(1);
+	Character*	meCopy = dynamic_cast<Character*>(me);
+	if (meCopy == nullptr)
+		return ;
+	floor[0] = meCopy->getInventory(1);
 	me->unequip(1);
 	me->unequip(1); // should output nothing
 	me->use(1, *bob); // should output nothing
 
-	floor[1] = me_copy->getInventory(2);
+	floor[1] = meCopy->getInventory(2);
 	me->unequip(2);
 	me->unequip(2); // should output nothing
 	me->use(2, *bob); // should output nothing
@@ -113,34 +215,86 @@ int	main()
 	me->equip(floor[0]);
 	floor[0] = nullptr;
 
-	useAllFromInventory(me, bob);
+	useAll(me, bob);
 
-	std::cout << "\033[36m" << "test3: Character copy constructor\n" << "\033[0m";
-	Character	bar0(*me_copy);
-	ICharacter*	bar = &bar0;
-	useAllFromInventory(bar, bob);
-
-	std::cout << "\033[36m" << "test4: Character copy assignment operator\n" << "\033[0m";
-	std::cout << "--before copy assignment operator--\n";
-	ICharacter*	foo = new Character("foo");
-	useAllFromInventory(foo, bob);
-	*dynamic_cast<Character*>(foo) = *me_copy;
-	std::cout << "--after copy assignment operator--\n";
-	useAllFromInventory(foo, bob);
-
-	// clean up
-	delete foo;
+	delete tmp;
+	delete src;
 	delete bob;
 	delete me;
-	delete src;
-	for (int i = 0; i < 10; i++)
-	{
-		if (floor[i] != nullptr)
-		{
-			delete floor[i];
-			floor[i] = nullptr;
-		}
-	}
+}
 
+static void	forCopy(){
+	IMateriaSource*	src = new MateriaSource();
+	AMateria	*ice = new Ice();
+	AMateria	*cure = new Cure();
+
+	src->learnMateria(ice);
+	src->learnMateria(cure);
+	src->learnMateria(ice);
+	src->learnMateria(cure);
+	src->learnMateria(cure);
+	src->learnMateria(nullptr);
+
+	ICharacter	*me = new Character("me");
+	AMateria	*tmp;
+	me->equip(nullptr);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+	tmp = src->createMateria("barrett-M82");
+	me->equip(tmp);
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+
+	ICharacter	*bob = new Character("bob");
+
+	Character*	meCopy = dynamic_cast<Character*>(me);
+	if (meCopy == nullptr)
+		return ;
+
+	std::cout << "\n------Test copy constructor------\n";
+	Character	bar0(*meCopy);
+	ICharacter	*bar = &bar0;
+	useAll(bar, bob);
+
+	std::cout << "\n-------Test copy operator--------\n";
+	std::cout << "--before copy assignment operator--\n";
+	ICharacter	*hero = new Character("hero");
+	useAll(hero, bob);
+	std::cout << "--after copy assignment operator---\n";
+	*dynamic_cast<Character*>(hero) = *meCopy;
+	useAll(hero, bob);
+
+	delete tmp;
+	delete src;
+	delete hero;
+	delete bob;
+	delete me;
+}
+
+int	main()
+{
+	std::cout << "\n-----------From subject-------------\n\n";
+	forSubject();
+
+	std::cout << "\n-----------From own test------------\n";
+	forNormal();
+
+	std::cout << "\n---Exchange materia with 1 and 2 then use all---\n";
+	forExchange();
+
+	std::cout << "\n--------If element not exist--------\n";
+	std::cout << "\n----------If cure not exist---------\n";
+	forNoCure();
+	std::cout << "\n----------If ice not exist----------\n";
+	forNoIce();
+
+	forCopy();
+	
 	return (0);
 }

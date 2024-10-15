@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 11:19:17 by likong            #+#    #+#             */
-/*   Updated: 2024/10/04 12:06:44 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/09 17:38:45 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ class WrongCat: public WrongAnimal{
 		
 		WrongCat		&operator = (const WrongCat &other);
 
-		void	makeSound() const override;
+		void			makeSound() const;
 };

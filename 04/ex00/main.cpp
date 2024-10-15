@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 12:10:33 by likong            #+#    #+#             */
-/*   Updated: 2024/10/08 16:06:40 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/09 17:41:03 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	forSubject(){
 	delete	meta;
 	meta = nullptr;
 	delete	j;
-	i = nullptr;
+	j = nullptr;
 	delete	i;
 	i = nullptr;
 }
@@ -46,11 +46,18 @@ void	forAnimal(){
 }
 
 void	forWrongAnimal(){
-	WrongAnimal wrongOther;
-	WrongCat wrongCat;
+	WrongAnimal *wrongAnimal = new WrongAnimal();
+	const WrongAnimal	*wrongCat = new WrongCat();
 	
-	wrongOther.makeSound(); 
-	wrongCat.makeSound();
+	std::cout << wrongAnimal->getType() << std::endl;
+	wrongAnimal->makeSound();
+	std::cout << wrongCat->getType() << std::endl;
+	wrongCat->makeSound();
+
+	delete	wrongAnimal;
+	wrongAnimal = nullptr;
+	delete	wrongCat;
+	wrongCat = nullptr;
 }
 
 int	main(void){
@@ -60,7 +67,7 @@ int	main(void){
 	std::cout << "\n-----------From normal animal------------\n\n";
 	forAnimal();
 
-	std::cout << "\n-----------From normal animal------------\n\n";
+	std::cout << "\n-----------From Wrong animal------------\n\n";
 	forWrongAnimal();
 	
 	return 0;

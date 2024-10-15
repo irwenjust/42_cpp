@@ -6,7 +6,7 @@
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 20:25:07 by likong            #+#    #+#             */
-/*   Updated: 2024/10/09 09:33:43 by likong           ###   ########.fr       */
+/*   Updated: 2024/10/09 19:08:55 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ Character::Character(const Character &other): _name(other._name){
 
 Character::~Character(){
 	for(int i = 0; i < 4; i++){
-		delete this->_inventory[i];
-		this->_inventory[i] = nullptr;
+		if (this->_inventory[i] != nullptr){
+			delete this->_inventory[i];
+			this->_inventory[i] = nullptr;
+		}
 	}
 }
 
@@ -62,7 +64,6 @@ std::string const	&Character::getName() const{
 void	Character::equip(AMateria *m){
 	if (m == nullptr)
 		return ;
-	std::cout << "hello" << std::endl;
 	for (int i = 0; i < 4; i++){
 		if (this->_inventory[i] == nullptr){
 			this->_inventory[i] = m;

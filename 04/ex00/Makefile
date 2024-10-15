@@ -1,4 +1,4 @@
-NAME := ploymorphism
+NAME := polymorphism
 FLAGS := -Wall -Wextra -Werror -std=c++11
 SRCS := main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
 OBJS_DIR := objs
