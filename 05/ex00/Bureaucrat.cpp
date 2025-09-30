@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/30 12:53:46 by likong            #+#    #+#             */
+/*   Updated: 2025/09/30 12:53:46 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Bureaucrat.hpp"
 
 Bureaucrat::Bureaucrat(): _name("default"), _grade(150) {}
@@ -29,13 +41,13 @@ int Bureaucrat::getGrade() const {
 	return _grade;
 }
 
-void Bureaucrat::increament() {
+void Bureaucrat::incrementGrade() {
 	if (_grade == 1)
 		throw GradeTooHighException();
 	_grade--;
 }
 
-void Bureaucrat::decreament() {
+void Bureaucrat::decrementGrade() {
 	if (_grade == 150)
 		throw GradeTooLowException();
 	_grade++;

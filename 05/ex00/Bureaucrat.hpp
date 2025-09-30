@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/30 12:53:42 by likong            #+#    #+#             */
+/*   Updated: 2025/09/30 12:53:42 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #pragma once
 
 #include <string>
@@ -19,8 +31,8 @@ class Bureaucrat {
 		const std::string& getName() const;
 		int getGrade() const;
 
-		void increament();
-		void decreament();
+		void incrementGrade();
+		void decrementGrade();
 
 		class GradeTooHighException: public std::exception {
 			public:

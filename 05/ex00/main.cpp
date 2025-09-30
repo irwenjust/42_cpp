@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/30 12:53:37 by likong            #+#    #+#             */
+/*   Updated: 2025/09/30 12:53:37 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Bureaucrat.hpp"
 
 int main() {
@@ -56,13 +68,13 @@ int main() {
 		Bureaucrat testIn("testIn", 3);
 		std::cout << testIn << std::endl;
 
-		testIn.increament();
+		testIn.incrementGrade();
 		std::cout << testIn << std::endl;
 
-		testIn.increament();
+		testIn.incrementGrade();
 		std::cout << testIn << std::endl;
 
-		testIn.increament();
+		testIn.incrementGrade();
 		std::cout << testIn << std::endl;
 	}catch (std::exception& e){
 		std::cout << e.what() << std::endl;
@@ -73,13 +85,13 @@ int main() {
 		Bureaucrat testDe("testDe", 148);
 		std::cout << testDe << std::endl;
 
-		testDe.decreament();
+		testDe.decrementGrade();
 		std::cout << testDe << std::endl;
 
-		testDe.decreament();
+		testDe.decrementGrade();
 		std::cout << testDe << std::endl;
 
-		testDe.decreament();
+		testDe.decrementGrade();
 		std::cout << testDe << std::endl;
 
 	}catch (std::exception& e){

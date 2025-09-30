@@ -1,8 +1,7 @@
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-int main()
-{
+int main() {
 	std::cout << "\n---Constructor---\n\n";
 	try{
 		Form testA;
@@ -66,10 +65,10 @@ int main()
 	B.signForm(formTest);
 	std::cout << std::endl;
 	C.signForm(formTest);
-	C.increament();
+	C.incrementGrade();
 	C.signForm(formTest);
 	std::cout << std::endl;
-	D.decreament();
+	D.decrementGrade();
 	D.signForm(formTest);
 
 	return 0;
