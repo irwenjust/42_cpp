@@ -54,22 +54,20 @@ int main() {
 	}
 
 	std::cout << "\n---Sign Test---\n\n";
-	Form formTest("FormTest", 24, 42);
+	Form formTest("FormTest", 50, 42);
 	std::cout << formTest << std::endl;
-	Bureaucrat	A("A", 20);
-	Bureaucrat	B("B", 24);
-	Bureaucrat	C("C", 25);
-	Bureaucrat	D("D", 24);
+	Bureaucrat	A("A", 49);
+	Bureaucrat	B("B", 51);
+	Bureaucrat	C("C", 50);
 
 	A.signForm(formTest);
+	std::cout << std::endl;
+	B.signForm(formTest);
+	B.incrementGrade();
 	B.signForm(formTest);
 	std::cout << std::endl;
+	C.decrementGrade();
 	C.signForm(formTest);
-	C.incrementGrade();
-	C.signForm(formTest);
-	std::cout << std::endl;
-	D.decrementGrade();
-	D.signForm(formTest);
 
 	return 0;
 }
