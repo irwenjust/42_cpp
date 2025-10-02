@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/30 12:53:42 by likong            #+#    #+#             */
-/*   Updated: 2025/09/30 12:53:42 by likong           ###   ########.fr       */
+/*   Created: 2025/10/01 13:15:26 by likong            #+#    #+#             */
+/*   Updated: 2025/10/01 13:15:26 by likong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 #include <string>
 #include <iostream>
+
+#include "AForm.hpp"
+
+class AForm;
 
 class Bureaucrat {
 	public:
@@ -29,6 +33,9 @@ class Bureaucrat {
 
 		void incrementGrade();
 		void decrementGrade();
+
+		void signForm(AForm& form);
+		void executeForm(const AForm& form);
 
 		class GradeTooHighException: public std::exception {
 			public:

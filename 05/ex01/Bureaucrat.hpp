@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/01 13:13:58 by likong            #+#    #+#             */
+/*   Updated: 2025/10/01 13:13:58 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #pragma once
 
 #include <string>
@@ -8,10 +20,6 @@
 class Form;
 
 class Bureaucrat {
-	private:
-		const std::string _name;
-		int	_grade;
-
 	public:
 		Bureaucrat();
 		Bureaucrat(const std::string name, int grade);
@@ -37,6 +45,10 @@ class Bureaucrat {
 			public:
 				const char* what() const noexcept override;
 		};
+
+	private:
+		const std::string _name;
+		int	_grade;
 };
 
 std::ostream& operator << (std::ostream& os, const Bureaucrat& bure);

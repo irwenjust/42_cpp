@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Form.hpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/01 13:14:09 by likong            #+#    #+#             */
+/*   Updated: 2025/10/01 13:14:10 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #pragma once
 
 #include <string>
@@ -7,12 +19,6 @@
 class Bureaucrat;
 
 class Form {
-	private:
-		const std::string _name;
-		bool	_isSigned;
-		const int	_gradeToSign;
-		const int	_gradeToExe;
-
 	public:
 		Form();
 		Form(const std::string name, int gradeToSign, int gradeToExe);
@@ -44,6 +50,12 @@ class Form {
 				GradeTooLowException(const std::string& mag);
 				const char* what() const noexcept override;
 		};
+	
+	private:
+		const std::string _name;
+		bool _isSigned;
+		const int _gradeToSign;
+		const int _gradeToExe;
 };
 
 std::ostream& operator << (std::ostream& os, const Form& form);
