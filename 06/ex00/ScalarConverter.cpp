@@ -150,18 +150,24 @@ void ScalarConverter::convert(const std::string &str) {
 		std::cout << "int: impossible" << std::endl;
 		std::cout << "float: " << str << std::endl;
 		std::cout << "double: " << str.substr(0, str.length() - 1) << std::endl;
+		break;
 	case PSEUDODOUBLE:
 		std::cout << "char: impossible" << std::endl;
 		std::cout << "int: impossible" << std::endl;
 		std::cout << "float: " << str << "f" << std::endl;
 		std::cout << "double: " << str << std::endl;
+		break;
 	case UNKNOWN:
 		std::cout << "char: impossible" << std::endl;
 		std::cout << "int: impossible" << std::endl;
 		std::cout << "float: impossible" << std::endl;
 		std::cout << "double: impossible" << std::endl;
-	case INT || FLOAT || DOUBLE:
+		break;
+	case INT:
+    case FLOAT:
+    case DOUBLE:
 		convertNumber(str, type);
+		break;
     default:
         break;
     }
