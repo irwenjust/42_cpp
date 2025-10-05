@@ -1,20 +1,13 @@
 #include <iostream>
 #include "ScalarConverter.hpp"
 
-#define BLUE "\033[34m"
-#define WHITE "\033[0m"
-
-int main(int argc, char** argv)
-{
-	if (argc == 2)
-	{
+int main(int argc, char** argv) {
+	if (argc == 2) {
 		const std::string input(argv[1]);
 		ScalarConverter::convert(input);
 		return (0);
 	}
 
-	std::cout << "\n----------Test----------\n\n";
-	
 	std::cout << "\n----------Char Test----------\n\n";
 	std::cout << "\n---Input: [a]---\n\n";
 	ScalarConverter::convert("a");
@@ -100,6 +93,8 @@ int main(int argc, char** argv)
 	ScalarConverter::convert("42.4.2f");
 	std::cout << "\n---Input: [4.2ff]---\n\n";
 	ScalarConverter::convert("4.2ff");
+	std::cout << "\n---Input: [+.f]---\n\n";
+	ScalarConverter::convert("+.f");
 
 	std::cout << "\n----------Double Test----------\n\n";
 	std::cout << "\n---Input: [0.0]---\n\n";
@@ -142,6 +137,8 @@ int main(int argc, char** argv)
 	ScalarConverter::convert("42.4.2");
 	std::cout << "\n---Input: [42..42]---\n\n";
 	ScalarConverter::convert("42..42");
+	std::cout << "\n---Input: [+.]---\n\n";
+	ScalarConverter::convert("+.");
 
 	return (0);
 }
