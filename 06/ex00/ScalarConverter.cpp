@@ -143,7 +143,7 @@ void ScalarConverter::convert(const std::string &str) {
         std::cout << "char: '" << str[0] << "'" << std::endl;
 		std::cout << "int: " << static_cast<int>(str[0])  << std::endl;
 		std::cout << "float: "  << std::fixed << std::setprecision(1) << static_cast<float>(str[0]) << "f" << std::endl;
-		std::cout << "double: "  << std::fixed << std::setprecision(1) << static_cast<double>(str[0]) << std::endl;
+		std::cout << "doublcd e: "  << std::fixed << std::setprecision(1) << static_cast<double>(str[0]) << std::endl;
         break;
     case PSEUDOFLOAT:
 		std::cout << "char: impossible" << std::endl;
