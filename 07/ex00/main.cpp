@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/15 10:21:10 by likong            #+#    #+#             */
+/*   Updated: 2025/10/15 10:21:10 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "whatever.hpp"
 #include <iostream>
 
@@ -38,12 +50,6 @@ int	main(void) {
 	std::cout << "g = " << g << ", h = " << h << std::endl;
 	std::cout << "min(g, h) = " << ::min( g, h ) << std::endl;
 	std::cout << "max(g, h) = " << ::max( g, h ) << std::endl;
-
-	// std::cout << "\n----------Diff type----------\n\n";
-	// ::swap(a, d);
-	// std::cout << "a = " << a << ", d = " << d << std::endl;
-	// std::cout << "min(a, d) = " << ::min( a, d ) << std::endl;
-	// std::cout << "max(a, d) = " << ::max( a, d ) << std::endl;
 
 	return (0);
 }

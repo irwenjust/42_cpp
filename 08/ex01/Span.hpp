@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Span.hpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/16 12:17:01 by likong            #+#    #+#             */
+/*   Updated: 2025/10/16 12:17:02 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #pragma once
 
 #include <vector>
@@ -14,8 +26,8 @@ private:
     std::vector<int> _numbers;
 
 public:
-    Span() = delete;
-    explicit Span(unsigned int n);
+    Span() = default;
+    Span(unsigned int n);
     Span(const Span&) = default;
     Span& operator=(const Span&) = default;
     ~Span() = default;
