@@ -8,8 +8,12 @@
 
 class RPN {
 	public:
+		RPN() = delete;
+		RPN(const RPN&)  = delete;
 		RPN(std::string t_inputString);
-		~RPN(void) = default;
+		~RPN() = default;
+
+		RPN& operator=(const RPN&)  = delete;
 
 		class ArgumentException : public std::exception {
 			public:
@@ -17,11 +21,7 @@ class RPN {
 		};
 	
 	private:
-		RPN(void) = delete;
-		RPN(const RPN&)  = delete;
-		RPN& operator=(const RPN&)  = delete;
+		std::stack<double> m_stack {};
 
 		void performCalculation(char t_operator);
-
-		std::stack<double> m_stack {};
 };

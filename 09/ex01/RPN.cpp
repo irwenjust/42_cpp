@@ -1,7 +1,5 @@
 #include "RPN.hpp"
 
-// CONSTRUCTOR
-
 RPN::RPN(std::string t_inputString) {
 	std::stringstream sstream(t_inputString);
 	std::string arg;
@@ -9,11 +7,11 @@ RPN::RPN(std::string t_inputString) {
 
 	if (t_inputString.empty())
 		throw ArgumentException();
-	while (getline(sstream, arg, ' ')) {
+	while (sstream >> arg) {
 		if (arg.length() != 1)
 			throw ArgumentException();
 
-		if (std::isdigit(arg[0]))
+		if (arg.size() == 1 && std::isdigit(static_cast<unsigned char>(arg[0])))
 			m_stack.push(std::stoi(arg));
 		else if (std::find(rpn_operators.begin(), rpn_operators.end(), arg[0]) != rpn_operators.end())
 			performCalculation(arg[0]);
@@ -21,13 +19,11 @@ RPN::RPN(std::string t_inputString) {
 			throw ArgumentException();
 	}
 
-	if (m_stack.size() > 1)
+	if (m_stack.size() != 1)
 		throw ArgumentException();
 
 	std::cout << m_stack.top() << "\n";
 }
-
-// MEMBER FUNCTIONS
 
 void RPN::performCalculation(char t_operator) {
 	double var1;
@@ -53,14 +49,14 @@ void RPN::performCalculation(char t_operator) {
 			result = var1 * var2;
 			break;
 		case '/':
+			if (var2 == 0)
+				throw ArgumentException();
 			result = var1 / var2;
 			break;
 	}
 
 	m_stack.push(result);
 }
-
-// EXCEPTIONS
 
 const char* RPN::ArgumentException::what() const throw() {
 	return "Error";
