@@ -133,7 +133,7 @@ int main(void) {
 
     std::cout << "\n----------big span size----------\n\n";
     try {
-        const unsigned int bigSize = 10001; 
+        const unsigned int bigSize = 10001;
         Span spTest9 = Span(bigSize);
 
         std::vector<int> bigNumbers(bigSize);
