@@ -60,7 +60,9 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "ranges": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "bitset": "cpp",
+        "regex": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
