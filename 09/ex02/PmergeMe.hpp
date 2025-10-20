@@ -5,6 +5,7 @@
 # include <chrono>
 # include <vector>
 # include <list>
+# include <ranges>
 
 class PmergeMe {
 	public:
@@ -28,6 +29,7 @@ class PmergeMe {
 
 		void printVector(std::string t_pretext);
 		void printList(std::string t_pretext);
-		void sortVector();
-		void sortList();
+
+		void sortVector(std::vector<int>& container);
+		void sortList(std::list<int>& container);
 };
