@@ -23,7 +23,8 @@ int main() {
 
 	try{
 		Bureaucrat testB("testB", 1);
-		std::cout << testB << std::endl;
+		Bureaucrat just_test = testB;
+		std::cout << just_test.getName() << std::endl;
 	}catch (std::exception& e){
 		std::cout << e.what() << std::endl;
 	}
