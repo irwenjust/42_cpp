@@ -1,21 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/21 12:03:09 by likong            #+#    #+#             */
+/*   Updated: 2025/10/21 12:04:15 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "BitcoinExchange.hpp"
 
-bool checkDate(std::string dateString)
-{
+bool checkDate(std::string dateString) {
 	std::string segment;
 	std::stringstream dateStringStream(dateString);
 	int dateInt;
 	int year;
 	int month;
-    // std::cout << "date string: " << dateInt << std::endl;
 
-	for (int i = 0; i < 3; i++)
-	{
+	for (int i = 0; i < 3; i++) {
 		getline(dateStringStream, segment, '-');
 		dateInt = std::stoi(segment);
 
-		switch (i)
-		{
+		switch (i) {
 			case 0:
 				if (dateInt < 2009 || segment.length() > 4)
 					return false;
@@ -33,8 +41,7 @@ bool checkDate(std::string dateString)
 					return false;
 				if (month == 2 && dateInt > 29)
 					return false;
-				if (month == 2 && dateInt > 28)
-				{
+				if (month == 2 && dateInt > 28) {
 					if (year % 4 != 0)
 						return false;
 					if (year % 100 == 0 && year % 400 != 0)
@@ -89,8 +96,7 @@ double BitcoinExchange::getPrice(const std::string &date) const {
     return it->second;
 }
 
-void BitcoinExchange::parseInput(std::string &file)
-{
+void BitcoinExchange::parseInput(std::string &file) {
     std::ifstream inputFile(file);
     if (!inputFile.is_open())
         throw std::runtime_error("Error: Could not open file " + file);

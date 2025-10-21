@@ -1,18 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: likong <likong@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/21 12:02:51 by likong            #+#    #+#             */
+/*   Updated: 2025/10/21 12:06:14 by likong           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
 #include "BitcoinExchange.hpp"
 
 int main(int argc, char **argv)
 {
     std::string inputFile;
-    if (argc == 1) {
-        std::cout << "running with default input file input.txt" << std::endl;
-        inputFile = "./input.txt";
-    }
-    else if (argc == 2) {
+    if (argc == 2) {
         inputFile = argv[1];
     }
     else {
-        std::cout << "usage: " << argv[0] << " [input file]" << std::endl;
+        std::cout << "Error: could not open file.\n";
         return 1;
     }
     try {
