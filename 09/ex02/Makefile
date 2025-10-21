@@ -1,6 +1,7 @@
 NAME = PmergeMe
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++20
+CFLAGS = -Wall -Wextra -Werror -std=c++11
+DFLAGS = -DDEBUG -g
 
 SRCS = main.cpp PmergeMe.cpp
 
@@ -26,5 +27,8 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+debug: CFLAGS += $(DFLAGS)
+debug: fclean all
 
 .PHONY: all clean fclean re

@@ -1,12 +1,8 @@
 #include "PmergeMe.hpp"
 
-// HELPER DECLARATIONS
-
 static bool strIsDigit(std::string str);
 // static void printIntPairVector(std::vector<std::pair<int, int>> vector);
 // static void printIntPairList(std::list<std::pair<int, int>> list);
-
-// CONSTRUCTOR
 
 PmergeMe::PmergeMe(size_t argc, char *argv[]) {
 	for (size_t i = 0; i < argc; i++) {
@@ -51,8 +47,6 @@ PmergeMe::PmergeMe(size_t argc, char *argv[]) {
 				<< " elements with std::list : " << m_listSortTime.count() << "us\n";
 }
 
-// MEMBER FUNCTIONS
-
 void PmergeMe::printVector(std::string t_pretext) {
 	std::cout << t_pretext;
 	for (size_t i = 0; i < m_vec.size(); i++) {
@@ -78,14 +72,31 @@ void PmergeMe::printList(std::string t_pretext) {
    ========================= */
 template <typename Seq>
 void binaryInsertion(Seq& a, const int value) {
+    #ifdef DEBUG
+    std::cout << "  [binaryInsertion] Insert " << value << " into ";
+    #endif
     // 在已升序的 a 中找上界位置
     std::size_t left = 0, right = a.size();
     while (left < right) {
         std::size_t mid = left + (right - left) / 2;
-        if (value < a[mid]) right = mid;
-        else                left  = mid + 1;
+        #ifdef DEBUG
+        std::cout << "    compare " << value << " with a[" << mid << "]=" << a[mid] << '\n';
+        #endif
+        if (value < a[mid])
+            right = mid;
+        else
+            left  = mid + 1;
     }
+    #ifdef DEBUG
+    std::cout << "    => position = " << left << "\n";
+    #endif
     a.insert(a.begin() + static_cast<std::ptrdiff_t>(left), value);
+
+    #ifdef DEBUG
+    std::cout << "    result: ";
+    for (int v : a) std::cout << v << ' ';
+    std::cout << "\n\n";
+    #endif
 }
 
 /* =========================
@@ -95,6 +106,9 @@ void binaryInsertion(Seq& a, const int value) {
 // 生成严格递增且 >=1 的 Jacobsthal 序列（不含 0），直到 >= limit
 // J(0)=0, J(1)=1, J(n)=J(n-1)+2*J(n-2)；插入次序通常从 1 开始使用
 std::vector<std::size_t> generateJacobsthalNumbers(std::size_t limit) {
+    #ifdef DEBUG
+    std::cout << "[generateJacobsthalNumbers] limit = " << limit << '\n';
+    #endif
     std::vector<std::size_t> j = {1}; // 从 1 开始
     // 为了递推方便，保留 J0=0, J1=1 的内部状态
     std::size_t j0 = 0, j1 = 1; // J(0), J(1)
@@ -105,11 +119,21 @@ std::vector<std::size_t> generateJacobsthalNumbers(std::size_t limit) {
         j0 = j1;
         j1 = jn;
     }
+
+    #ifdef DEBUG
+    std::cout << "  Jacobsthal sequence: ";
+    for (auto v : j) std::cout << v << ' ';
+    std::cout << "\n\n";
+    #endif
+    
     return j;
 }
 
 // 把 B 的下标按“Jacobsthal 优先，然后补齐剩余未用下标”的顺序返回
 std::vector<std::size_t> generateOptimalInsertOrder(std::size_t bSize) {
+    #ifdef DEBUG
+    std::cout << "[generateOptimalInsertOrder] bSize = " << bSize << '\n';
+    #endif
     std::vector<std::size_t> order;
     order.reserve(bSize);
 
@@ -118,19 +142,38 @@ std::vector<std::size_t> generateOptimalInsertOrder(std::size_t bSize) {
     // 先按 Jacobsthal 产生候选（限制在 [0, bSize) ）
     const auto jac = generateJacobsthalNumbers(bSize);
     std::vector<bool> used(bSize, false);
+    #ifdef DEBUG
+    std::cout << "  Using Jacobsthal indices first:\n";
+    #endif
     for (std::size_t v : jac) {
         // 通常论文里用 1-based 的 J(k)；我们的 B 是 0-based。
         // 这里直接使用 0-based 的值，已经在生成时从 1 起步并裁剪 < bSize。
         if (v < bSize && !used[v]) {
+            #ifdef DEBUG
+            std::cout << "    -> take index " << v << '\n';
+            #endif
             order.push_back(v);
             used[v] = true;
         }
     }
 
+    #ifdef DEBUG
+    std::cout << "  Filling remaining indices:\n";
+    #endif
     // 再把剩余没用到的索引按自然序补齐
     for (std::size_t i = 0; i < bSize; ++i) {
+        #ifdef DEBUG
+        std::cout << "    -> take index " << i << '\n';
+        #endif
         if (!used[i]) order.push_back(i);
     }
+
+    #ifdef DEBUG
+    std::cout << "  => final order: ";
+    for (auto v : order) std::cout << v << ' ';
+    std::cout << "\n\n";
+    #endif
+    
     return order;
 }
 
@@ -143,6 +186,12 @@ void PmergeMe::sortVector(std::vector<int>& container) {
     const std::size_t size = container.size();
     if (size < 2) return;
 
+    #ifdef DEBUG
+    std::cout << "\n=== sortVector called with ";
+    for (int v : container) std::cout << v << ' ';
+    std::cout << "===\n";
+    #endif
+
     // 1) 组成配对，把较大者放 first，较小者放 second（便于后面逻辑）
     std::vector<std::pair<int,int>> pairs;
     pairs.reserve(size / 2);
@@ -152,6 +201,13 @@ void PmergeMe::sortVector(std::vector<int>& container) {
         if (a < b) pairs.emplace_back(b, a);
         else       pairs.emplace_back(a, b);
     }
+
+    #ifdef DEBUG
+    std::cout << "  pairs: ";
+    for (auto& p : pairs)
+        std::cout << '(' << p.first << ',' << p.second << ") ";
+    std::cout << '\n';
+    #endif
 
     // 2) 拆成 A（大元素，已按“各对内最大”）与 B（小元素）
     std::vector<int> A; A.reserve((size + 1) / 2);
@@ -163,15 +219,32 @@ void PmergeMe::sortVector(std::vector<int>& container) {
     // 若为奇数个，把最后落单的元素并入 A
     if (size % 2 == 1) A.push_back(container.back());
 
+    #ifdef DEBUG
+    std::cout << "  A (larger): ";
+    for (int v : A) std::cout << v << ' ';
+    std::cout << "\n  B (smaller): ";
+    for (int v : B) std::cout << v << ' ';
+    std::cout << "\n";
+    #endif
+
     // 3) 递归排序 A（只对各对内的“大值”序列排序）
     sortVector(A);
 
     // 4) 按 Jacobsthal 最优插入次序，把 B 元素二分插回 A
     const std::vector<std::size_t> order = generateOptimalInsertOrder(B.size());
+    #ifdef DEBUG
+    std::cout << "  [Insertion phase]\n";
+    #endif
     for (std::size_t idx : order) {
         if (idx < B.size())
             binaryInsertion(A, B[idx]); // 二分寻找位置再插入
     }
+
+    #ifdef DEBUG
+    std::cout << "  => Merged result: ";
+    for (int v : A) std::cout << v << ' ';
+    std::cout << "\n";
+    #endif
 
     // 5) 覆盖回原容器
     container.swap(A);
@@ -232,51 +305,6 @@ void PmergeMe::sortList(std::list<int>& container) {
     container.swap(A);
 }
 
-// void PmergeMe::sortList() {
-// 	if (m_list.size() == 1)
-// 		return ;
-
-// 	std::list<int>::iterator it = m_list.begin();
-// 	std::list<std::pair<int, int>> pairs;
-// 	int oddInt = -1;
-
-// 	for (size_t i = 0; i + 1 < m_list.size(); i += 2) {
-// 		pairs.push_back(std::pair<int, int>(*it, *(std::next(it))));
-// 		it = std::next(it, 2);
-// 	}
-// 	if (m_list.size() % 2 == 1)
-// 		oddInt = m_list.back();
-
-// 	m_list.clear();
-
-// 	for (std::pair<int, int>& pair : pairs) {
-// 		if (pair.second < pair.first)
-// 			std::swap(pair.first, pair.second);
-// 		m_list.push_back(pair.second);
-// 	}
-// 	if (oddInt != -1)
-// 		m_list.push_back(oddInt);
-	
-// 	// std::cout << "pairs: ";
-// 	// printIntPairList(pairs);
-
-// 	// printList("m_list:\t");
-	
-// 	sortList();
-
-// 	for (std::pair<int, int>& pair : pairs) {
-// 		it = m_list.begin();
-// 		while (*it < pair.first)
-// 			it++;
-// 		m_list.insert(it, pair.first);
-// 	}
-
-// 	// printList("m_list sorted:\t");
-// }
-
-
-// HELPER FUNCTIONS
-
 bool strIsDigit(std::string str) {
 	if (str.empty())
 		return false;
@@ -286,28 +314,6 @@ bool strIsDigit(std::string str) {
 	}
 	return true;
 }
-
-// void printIntPairVector(std::vector<std::pair<int, int>> vector) {
-// 	for (size_t i = 0; i < vector.size(); i++) {
-// 		if (i != 0)
-// 			std::cout << " ";
-// 		std::cout << "(" << vector[i].first << ", " << vector[i].second << ")";
-
-// 	}
-// 	std::cout << "\n";
-// }
-
-// void printIntPairList(std::list<std::pair<int, int>> list) {
-// 	for (size_t i = 0; i < list.size(); i++) {
-// 		if (i != 0)
-// 			std::cout << " ";
-// 		std::cout << "(" << std::next(list.begin(), i)->first << ", " << std::next(list.begin(), i)->second << ")";
-
-// 	}
-// 	std::cout << "\n";
-// }
-
-// EXCEPTIONS
 
 const char* PmergeMe::ArgumentException::what() const throw() {
 	return "Error";
